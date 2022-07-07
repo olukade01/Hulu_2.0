@@ -12,7 +12,7 @@ import {
 function Header() {
   return (
     <header className="flex flex-col m-5 sm:flex-row h-auto items-center justify-between">
-      <div className="flex flex-grow justify-evenly max-w-2xl bg-slate-500">
+      <div className="flex flex-grow justify-evenly max-w-2xl">
         <HeaderItems Icon={HomeIcon} title="HOME" />
         <HeaderItems Icon={LightningBoltIcon} title="TRENDING" />
         <HeaderItems Icon={BadgeCheckIcon} title="VERIFIED" />
@@ -21,7 +21,7 @@ function Header() {
         <HeaderItems Icon={UserIcon} title="ACCOUNT" />
       </div>
       <Image
-        className="bg-red-200 object-contain"
+        className="object-contain"
         src="https://links.papareact.com/ua6"
         alt="hulu-logo"
         width={200}

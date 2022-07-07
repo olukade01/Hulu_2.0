@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
+/* html,
 body {
   padding: 0;
   margin: 0;
@@ -17,5 +17,11 @@ a {
 
 * {
   box-sizing: border-box;
+} */
+
+@layer base {
+  body {
+    @apply bg-[#06202a] text-gray-300
+  }
 }
  

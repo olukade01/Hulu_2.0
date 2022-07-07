@@ -4,8 +4,8 @@ import Navbar from "../components/Navbar";
 import Body from "../components/Body";
 import requests from "../utils/Requests";
 
-export default function Home(props) {
-  console.log(props);
+export default function Home({ results }) {
+  console.log(results);
   return (
     <div>
       <Head>
@@ -15,7 +15,7 @@ export default function Home(props) {
       </Head>
       <Header />
       <Navbar />
-      <Body />
+      <Body results={results} />
     </div>
   );
 }
