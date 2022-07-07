@@ -1,15 +1,24 @@
+import { useRouter } from "next/router";
 import React from "react";
 import requests from "../utils/Requests";
 
 const Navbar = () => {
+  const router = useRouter();
   return (
-    <div className="flex">
-      {Object.entries(requests).map(([key, { title, url }]) => (
-        <h2 key={key} className="">
-          {title}
-        </h2>
-      ))}
-    </div>
+    <nav className="relative">
+      <div className="flex px-10 sm:px-20 text-2xl space-x-10 sm:space-x-20 whitespace-nowrap overflow-x-scroll scrollbar-hide">
+        {Object.entries(requests).map(([key, { title, url }]) => (
+          <h2
+            key={key}
+            onClick={() => router.push(`/?genre=${key}`)}
+            className="cursor-pointer transition duration-100 transform hover:scale-125 hover:text-whit active:text-red-500 "
+          >
+            {title}
+          </h2>
+        ))}
+      </div>
+      <div className="absolute top-0 right-0 bg-gradient-to-l from-[#06202a] h-9 w-[8%]" />
+    </nav>
   );
 };
 
