@@ -11,7 +11,7 @@ const Navbar = () => {
           <h2
             key={key}
             onClick={() => router.push(`/?genre=${key}`)}
-            className="cursor-pointer transition duration-100 transform hover:scale-125 hover:text-white active:text-red-500 "
+            className="cursor-pointer duration-200 hover:scale-125 hover:text-white active:text-red-500"
           >
             {title}
           </h2>

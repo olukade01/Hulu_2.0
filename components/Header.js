@@ -9,16 +9,39 @@ import {
   SearchIcon,
 } from "@heroicons/react/outline";
 
+const headerItemsArr = [
+  {
+    Icon: HomeIcon,
+    title: "HOME",
+  },
+  {
+    Icon: LightningBoltIcon,
+    title: "TRENDING",
+  },
+  {
+    Icon: BadgeCheckIcon,
+    title: "VERIFIED",
+  },
+  {
+    Icon: CollectionIcon,
+    title: "COLLECTIONS",
+  },
+  {
+    Icon: SearchIcon,
+    title: "SEARCH",
+  },
+  {
+    Icon: UserIcon,
+    title: "ACCOUNT",
+  },
+];
 function Header() {
   return (
     <header className="flex flex-col m-5 sm:flex-row h-auto items-center justify-between">
       <div className="flex flex-grow justify-evenly max-w-2xl">
-        <HeaderItems Icon={HomeIcon} title="HOME" />
-        <HeaderItems Icon={LightningBoltIcon} title="TRENDING" />
-        <HeaderItems Icon={BadgeCheckIcon} title="VERIFIED" />
-        <HeaderItems Icon={CollectionIcon} title="COLLECTIONS" />
-        <HeaderItems Icon={SearchIcon} title="SEARCH" />
-        <HeaderItems Icon={UserIcon} title="ACCOUNT" />
+        {headerItemsArr.map((data) => (
+          <HeaderItems key={data.title} {...data} />
+        ))}
       </div>
       <Image
         className="object-contain"
