@@ -27,15 +27,11 @@ const headerItemsArr = [
     title: "COLLECTIONS",
   },
   {
-    Icon: SearchIcon,
-    title: "SEARCH",
-  },
-  {
     Icon: UserIcon,
     title: "ACCOUNT",
   },
 ];
-function Header() {
+function Header({ fetchMovies, setSearchKey }) {
   return (
     <header className="flex flex-col m-5 sm:flex-row h-auto items-center justify-between">
       <div className="flex flex-grow justify-evenly max-w-2xl">
@@ -43,6 +39,17 @@ function Header() {
           <HeaderItems key={data.title} {...data} />
         ))}
       </div>
+      <form className="form" onSubmit={fetchMovies}>
+        <input
+          className="search"
+          type="text"
+          id="search"
+          onInput={(event) => setSearchKey(event.target.value)}
+        />
+        <button className="submit-search" type="submit">
+          <i className="fa fa-search">th</i>
+        </button>
+      </form>
       <Image
         className="object-contain"
         src="https://links.papareact.com/ua6"
