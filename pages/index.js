@@ -13,9 +13,9 @@ export default function Home({ results }) {
   // console.log(process.env);
   const [searchValue, setSearchValue] = useState("");
   const [movies, setMovies] = useState([]);
-  // useEffect(() => {
-  //   fetchMovies();
-  // }, []);
+  useEffect(() => {
+    fetchMovies();
+  }, []);
 
   const fetchMovies = async (event) => {
     if (event) {

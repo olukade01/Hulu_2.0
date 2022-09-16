@@ -6,10 +6,52 @@ import Link from "next/link";
 import Image from "next/image";
 import YouTube from "react-youtube";
 import Body from "../../components/Body";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import RelatedMovies from "../../components/RelatedMovies";
 
-const arr = [1, 2, 3];
 const Id = ({ request, requestt }) => {
-  console.log(requestt);
+  var settings = {
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4.5,
+    slidesToScroll: 3,
+    swipeToSlide: true,
+    draggable: true,
+    // arrows: false,
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 3.5,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 1008,
+        settings: {
+          slidesToShow: 2.5,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1.5,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 400,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+  console.log(request);
   if (request && request.success === false) {
     return (
       <h1 className="text-center mt-40 text-3xl sm:text-6xl animate-bounce p-10 text-red-400">
@@ -86,24 +128,36 @@ const Id = ({ request, requestt }) => {
           )}
         </div>
       </div>
-      <h1 className="text-3xl p-8">Related Images</h1>
-      <div className="grid lg:grid-cols-3 gap-2 sm:gap-7 max-w-7xl px-8 m-auto">
-        {arr.map((a) => (
-          <Image
-            key={a}
-            alt={request?.title}
-            src={
-              `${BASE_URL}${request?.backdrop_path || request?.poster_path}`
-              //  ||
-              // `${BASE_URL}${request.poster_path}`
-            }
-            width={400}
-            height={300}
-            objectFit="contain"
-          />
-        ))}
+      <h1 className="text-2xl sm:text-3xl p-5 pb-0 sm:p-8 text-gray-400">
+        Related Images
+      </h1>
+      {request?.images.backdrops.length ? (
+        <div className="px-6 grid grid-cols-2 md:flex flex-wrap justify-center gap-x-3 sm:gap-x-5">
+          {request?.images.backdrops.slice(0, 8).map(({ file_path }, index) => (
+            <Image
+              key={index}
+              alt={request?.title}
+              src={`${BASE_URL}${file_path}`}
+              width={300}
+              height={210}
+              objectFit="contain"
+            />
+          ))}
+        </div>
+      ) : (
+        <h1 className="text-center text-3xl">Related Images not available</h1>
+      )}
+      <div className="p-8 sm:p-12">
+        <h1 className="text-3xl mb-6">Similar Movies</h1>
+        <Slider {...settings}>
+          {requestt?.results.map(
+            (result) =>
+              (result.backdrop_path || result.poster_path) && (
+                <RelatedMovies result={result} />
+              )
+          )}
+        </Slider>
       </div>
-      <Body results={requestt.results} />
     </div>
   );
 };
@@ -113,7 +167,7 @@ export default Id;
 export async function getStaticProps(context) {
   const id = context.params.id;
   const request = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&append_to_response=videos`
+    `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&append_to_response=videos,images`
   ).then((res) => res.json());
   const requestt = await fetch(
     `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${API_KEY}&append_to_response=videos`
