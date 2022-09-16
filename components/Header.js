@@ -7,7 +7,11 @@ import {
   LightningBoltIcon,
   UserIcon,
   SearchIcon,
+  XIcon,
+  BackspaceIcon,
 } from "@heroicons/react/outline";
+import { useState } from "react";
+import styles from "../styles/utils.module.scss";
 
 const headerItemsArr = [
   {
@@ -31,7 +35,8 @@ const headerItemsArr = [
     title: "ACCOUNT",
   },
 ];
-function Header({ fetchMovies, setSearchKey }) {
+function Header({ fetchMovies, setSearchKey, searchKey }) {
+  const [open, setOpen] = useState(false);
   return (
     <header className="flex flex-col m-5 sm:flex-row h-auto items-center justify-between">
       <div className="flex flex-grow justify-evenly max-w-2xl">
@@ -39,16 +44,45 @@ function Header({ fetchMovies, setSearchKey }) {
           <HeaderItems key={data.title} {...data} />
         ))}
       </div>
-      <form className="form" onSubmit={fetchMovies}>
+      <form
+        className={`relative flex justify-start items-center ${
+          open && styles.open
+        }`}
+        onSubmit={fetchMovies}
+      >
+        {open ? (
+          <button
+            className="text-black absolute bottom-[0.4rem] left-1"
+            type="submit"
+          >
+            <SearchIcon className="h-7" />
+          </button>
+        ) : (
+          <SearchIcon
+            className={`${styles.icon} h-8 hover:animate-spin absolute cursor-pointer`}
+            onClick={() => setOpen(true)}
+          />
+        )}
         <input
-          className="search"
+          className={`${styles.search}`}
           type="text"
-          id="search"
           onInput={(event) => setSearchKey(event.target.value)}
         />
-        <button className="submit-search" type="submit">
-          <i className="fa fa-search">th</i>
-        </button>
+        {open && (
+          <XIcon
+            className={`${styles.close} hover:animate-spin text-red-400 h-7 absolute cursor-pointer right-1`}
+            onClick={() => {
+              setSearchKey("");
+              setOpen(false);
+            }}
+          />
+        )}
+        {searchKey.length !== 0 && (
+          <BackspaceIcon
+            onClick={() => setSearchKey("")}
+            className={`${styles.delete} hover:animate-bounce text-blue-300 h-7 absolute cursor-pointer right-[3rem]`}
+          />
+        )}
       </form>
       <Image
         className="object-contain"

@@ -13,9 +13,9 @@ export default function Home({ results }) {
   // console.log(process.env);
   const [searchValue, setSearchValue] = useState("");
   const [movies, setMovies] = useState([]);
-  useEffect(() => {
-    fetchMovies();
-  }, []);
+  // useEffect(() => {
+  //   fetchMovies();
+  // }, []);
 
   const fetchMovies = async (event) => {
     if (event) {
@@ -32,7 +32,7 @@ export default function Home({ results }) {
     );
     console.log({ data });
     setMovies(data.results);
-    // setSearchValue("");
+    setSearchValue("");
   };
   // console.log(searchValue);
   return (
@@ -41,7 +41,11 @@ export default function Home({ results }) {
         <title>Hulu 2.0</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header fetchMovies={fetchMovies} setSearchKey={setSearchValue} />
+      <Header
+        fetchMovies={fetchMovies}
+        setSearchKey={setSearchValue}
+        searchKey={searchValue}
+      />
       <Navbar setMovies={setMovies} />
       <Body results={movies.length ? movies : results} />
     </div>

@@ -13,5 +13,4 @@ function Body({ results }) {
     </FlipMove>
   );
 }
-
 export default Body;

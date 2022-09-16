@@ -1,0 +1,23 @@
+
+form{
+  &.close {
+    transition: 500ms fill ease-in;
+  }
+
+  .search {
+    background-color: transparent;
+    font-size: 1.2rem;
+    color: #767b91;
+    outline: none;
+    width: 2rem;
+    transition: 500ms ease-in-out
+  }
+
+  &.open .search {
+    background-color: #e1e5ee;
+    box-shadow: 0 0 5px 4px #e1e5ee;
+    width: 23rem;
+    padding: 0.5rem 5.5rem 0.5rem 2.5rem;
+    border-radius: 0.2rem
+  }
+}
