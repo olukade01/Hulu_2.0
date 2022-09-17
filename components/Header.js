@@ -58,14 +58,20 @@ function Header({ fetchMovies, setSearchKey, searchKey }) {
             <SearchIcon className="h-7" />
           </button>
         ) : (
-          <SearchIcon
-            className={`${styles.icon} h-8 hover:animate-spin absolute cursor-pointer`}
-            onClick={() => setOpen(true)}
-          />
+          <div className="group flex flex-col items-center w-12 sm:w-20 text-white hover:bg-gradient-to-r from-cyan-500 to-blue-500 cursor-pointer">
+            <SearchIcon
+              className={`${styles.icon} bg-gradient-to-l from-sky-500 to-indigo-500 group-hover:from-transparent p-2 z-50 h-12 group-hover:animate-spin absolute`}
+              onClick={() => setOpen(true)}
+            />
+            <p className="tracking-widest opacity-0 mt-10 group-hover:opacity-100">
+              SEARCH
+            </p>
+          </div>
         )}
         <input
           className={`${styles.search}`}
           type="text"
+          value={searchKey}
           onInput={(event) => setSearchKey(event.target.value)}
         />
         {open && (

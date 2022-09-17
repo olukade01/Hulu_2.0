@@ -8,9 +8,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 const API_KEY = "d50091b39be416d0eae205c5e5fa6f9d";
 // const API_KEY = process.env.API_KEY;
+const BASE_URL = "https://image.tmdb.org/t/p/original";
 
 export default function Home({ results }) {
   // console.log(process.env);
+  console.log(
+    `${BASE_URL}${results[0].backdrop_path || results[0].poster_path}`
+  );
   const [searchValue, setSearchValue] = useState("");
   const [movies, setMovies] = useState([]);
   // useEffect(() => {
@@ -41,12 +45,28 @@ export default function Home({ results }) {
         <title>Hulu 2.0</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header
-        fetchMovies={fetchMovies}
-        setSearchKey={setSearchValue}
-        searchKey={searchValue}
-      />
-      <Navbar setMovies={setMovies} />
+      <div
+        style={{
+          backgroundImage: movies.length
+            ? `url(
+            ${BASE_URL}${movies[0].backdrop_path || movies[0].poster_path}
+          )`
+            : `url(
+            ${BASE_URL}${results[0].backdrop_path || results[0].poster_path}
+          )`,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
+        className="pb-14 pt-4"
+      >
+        <Header
+          fetchMovies={fetchMovies}
+          setSearchKey={setSearchValue}
+          searchKey={searchValue}
+        />
+        <Navbar setMovies={setMovies} />
+      </div>
       <Body results={movies.length ? movies : results} />
     </div>
   );

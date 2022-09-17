@@ -9,7 +9,7 @@ const Thumbnail = forwardRef(({ result }, ref) => {
     <Link href={`/movie/${result.id}`}>
       <div
         ref={ref}
-        className="group cursor-pointer p-2 transition duration-200 ease-in transform sm:hover:scale-105 hover:z-50"
+        className="group cursor-pointer p-2 transition duration-200 ease-in transform hover:border-2 hover:border-gray-500 sm:hover:scale-105 hover:z-50"
       >
         <Image
           width={1920}

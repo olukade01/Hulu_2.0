@@ -14,7 +14,7 @@ const Navbar = ({ setMovies }) => {
               router.push(`/?genre=${key}`);
               setMovies([]);
             }}
-            className="cursor-pointer duration-200 hover:scale-125 hover:text-white active:text-red-500"
+            className="cursor-pointer px-2 rounded duration-200 hover:scale-125 hover:text-white active:text-red-500 bg-gradient-to-r hover:bg-gradient-to-bl from-purple-500 to-pink-500"
           >
             {title}
           </h2>
