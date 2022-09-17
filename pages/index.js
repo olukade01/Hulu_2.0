@@ -40,7 +40,7 @@ export default function Home({ results }) {
   };
   // console.log(searchValue);
   return (
-    <div>
+    <div className="overflow-hidden">
       <Head>
         <title>Hulu 2.0</title>
         <link rel="icon" href="/favicon.ico" />
