@@ -72,8 +72,8 @@ const Id = ({ request, requestt }) => {
   return (
     <div>
       <Link href={"/"}>
-        <div className="flex items-center gap-x-2 justify-center bg-white w-40 shadow-lg text-lg text-black cursor-pointer rounded-full m-6">
-          <ArrowNarrowLeftIcon className="h-12 text-red-400" />
+        <div className="flex items-center gap-x-2 justify-center bg-white w-32 shadow-lg text-lg text-black cursor-pointer rounded-full m-6">
+          <ArrowNarrowLeftIcon className="h-8 text-red-400" />
           <h1>Go Back</h1>
         </div>
       </Link>
@@ -111,6 +111,7 @@ const Id = ({ request, requestt }) => {
           <h1>Status: {request?.status}</h1>
           <h1>Duration: {request?.runtime} minutes</h1>
           <h1>Languages: {languages?.join(", ")}</h1>
+          <h1>Revenue: {request?.revenue}</h1>
           <h1 className="flex items-center">
             The people seen this: {request?.popularity}{" "}
             <EyeIcon className="h-5 text-blue-300" />
