@@ -10,8 +10,11 @@ import {
   XIcon,
   BackspaceIcon,
 } from "@heroicons/react/outline";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import styles from "../styles/utils.module.scss";
+import axios from "axios";
+import debounce from "lodash.debounce";
+const API_KEY = "d50091b39be416d0eae205c5e5fa6f9d";
 
 const headerItemsArr = [
   {
@@ -37,6 +40,31 @@ const headerItemsArr = [
 ];
 function Header({ fetchMovies, setSearchKey, searchKey }) {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [options, setOptions] = useState([]);
+
+  const fetchOptions = async () => {
+    if (searchKey) {
+      setLoading(true);
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/search/movie`,
+        {
+          params: {
+            api_key: API_KEY,
+            query: searchKey,
+          },
+        }
+      );
+      setOptions(data.results);
+      setLoading(false);
+    } else {
+      setOptions([]);
+    }
+  };
+  const debouncedSave = useCallback(
+    debounce(() => fetchOptions(), 1000),
+    [searchKey]
+  );
   return (
     <header className="flex flex-col m-5 mb-14 sm:flex-row h-auto items-center justify-between gap-x-8 sm:justify-center  sm:flex-wrap">
       <div className="flex flex-grow justify-between max-w-xl">
@@ -47,7 +75,11 @@ function Header({ fetchMovies, setSearchKey, searchKey }) {
       <div className="">
         <form
           className={`relative flex items-center ${open && styles.open}`}
-          onSubmit={fetchMovies}
+          onSubmit={(e) => {
+            e.preventDefault();
+            fetchMovies();
+            setOptions([]);
+          }}
         >
           {open ? (
             <button
@@ -71,7 +103,11 @@ function Header({ fetchMovies, setSearchKey, searchKey }) {
             className={`${styles.search}`}
             type="text"
             value={searchKey}
-            onInput={(event) => setSearchKey(event.target.value)}
+            onInput={(event) => {
+              setSearchKey(event.target.value);
+              debouncedSave();
+              // fetchOptions();
+            }}
           />
           {open && (
             <XIcon
@@ -89,6 +125,24 @@ function Header({ fetchMovies, setSearchKey, searchKey }) {
             />
           )}
         </form>
+        <div className={`${open && "w-60 h-10"} overflow-scroll bg-gray-500`}>
+          <ul>
+            {loading && <li>Loading...</li>}
+            {options?.length > 0 &&
+              !loading &&
+              options.map((movie, index) => (
+                <li
+                  className="cursor-pointer"
+                  key={`${movie.id}-${index}`}
+                  onClick={() =>
+                    setSearchKey(movie.title || movie.original_title)
+                  }
+                >
+                  {movie.title || movie.original_title}
+                </li>
+              ))}
+          </ul>
+        </div>
       </div>
     </header>
   );

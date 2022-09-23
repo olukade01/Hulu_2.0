@@ -21,10 +21,7 @@ export default function Home({ results }) {
   //   fetchMovies();
   // }, []);
 
-  const fetchMovies = async (event) => {
-    if (event) {
-      event.preventDefault();
-    }
+  const fetchMovies = async () => {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/search/movie`,
       {
@@ -38,6 +35,7 @@ export default function Home({ results }) {
     setMovies(data.results);
     setSearchValue("");
   };
+
   // console.log(searchValue);
   return (
     <div className="overflow-hidden">
