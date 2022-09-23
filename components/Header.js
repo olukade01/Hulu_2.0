@@ -57,9 +57,10 @@ function Header({ fetchMovies, setSearchKey, searchKey }) {
       );
       setOptions(data.results);
       setLoading(false);
-    } else {
-      setOptions([]);
     }
+    // else {
+    //   setOptions([]);
+    // }
   };
   const debouncedSave = useCallback(
     debounce(() => fetchOptions(), 1000),
@@ -125,24 +126,30 @@ function Header({ fetchMovies, setSearchKey, searchKey }) {
             />
           )}
         </form>
-        <div className={`${open && "w-60 h-10"} overflow-scroll bg-gray-500`}>
-          <ul>
-            {loading && <li>Loading...</li>}
-            {options?.length > 0 &&
-              !loading &&
-              options.map((movie, index) => (
-                <li
-                  className="cursor-pointer"
-                  key={`${movie.id}-${index}`}
-                  onClick={() =>
-                    setSearchKey(movie.title || movie.original_title)
-                  }
-                >
-                  {movie.title || movie.original_title}
-                </li>
-              ))}
-          </ul>
-        </div>
+        {searchKey && (
+          <div
+            className={`${
+              open && "w-72 h-32"
+            } text-black overflow-scroll p-3 bg-white`}
+          >
+            <ul>
+              {loading && <li>Loading...</li>}
+              {options?.length > 0 &&
+                !loading &&
+                options.map((movie, index) => (
+                  <li
+                    className="cursor-pointer"
+                    key={`${movie.id}-${index}`}
+                    onClick={() =>
+                      setSearchKey(movie.title || movie.original_title)
+                    }
+                  >
+                    {movie.title || movie.original_title}
+                  </li>
+                ))}
+            </ul>
+          </div>
+        )}
       </div>
     </header>
   );
