@@ -1,5 +1,5 @@
 import React from "react";
-import requests from "../../utils/Requests";
+import requests from "../../utils/requests";
 const API_KEY = process.env.API_KEY;
 import { ArrowNarrowLeftIcon, StarIcon, EyeIcon } from "@heroicons/react/solid";
 import Link from "next/link";

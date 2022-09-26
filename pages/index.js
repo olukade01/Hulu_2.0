@@ -2,7 +2,7 @@ import Head from "next/head";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import Body from "../components/Body";
-import requests from "../utils/Requests";
+import requests from "../utils/requests";
 import { useState, useEffect } from "react";
 // require("dotenv").config();
 import axios from "axios";
